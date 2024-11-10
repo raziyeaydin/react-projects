@@ -1,25 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import MovieList from "./components/MovieList";
+import MovieDetail from "./components/MovieDetail";
 
-function App() {
+const App = () => {
+  const [movies] = useState([
+    { id: 1, title: "Inception", description: "A mind-bending thriller.", rating: 5, comments: [] },
+    { id: 2, title: "The Matrix", description: "A sci-fi classic.", rating: 4, comments: [] },
+    { id: 3, title: "Interstellar", description: "A journey through space and time.", rating: 5, comments: [] }
+  ]);
+
+  const [selectedMovie, setSelectedMovie] = useState(null);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Movie Database</h1>
+      <MovieList movies={movies} onSelectMovie={setSelectedMovie} />
+      {selectedMovie && (
+        <MovieDetail movie={selectedMovie} onClose={() => setSelectedMovie(null)} />
+      )}
     </div>
   );
-}
+};
 
 export default App;
